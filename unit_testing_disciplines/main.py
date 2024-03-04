@@ -11,6 +11,8 @@ def post(path: str) -> Callable[..., Any]:
 
 @dataclass(frozen=True)
 class Body:
+    to: str
+    from_: str
     text: str
 
 
