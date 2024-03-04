@@ -15,5 +15,5 @@ class Body:
 
 
 @post(path="/send-text")
-def send_text(body: Body):
-    return {"body", Body}
+def send_text(body: Body) -> dict[str, Body]:
+    return {"body": body}
