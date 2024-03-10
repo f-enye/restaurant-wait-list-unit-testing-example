@@ -1,6 +1,7 @@
 from unittest.mock import patch
 from pytest import fixture
-from unit_testing_disciplines.main import Body, send_text, SendResult
+from unit_testing_disciplines.external.text.send import SendResult
+from unit_testing_disciplines.main import Body, send_text
 
 @fixture
 def send_mock():
