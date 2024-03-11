@@ -14,15 +14,15 @@ def post(path: str) -> Callable[..., Any]:
 class Body:
     eventGuid: str
     partyGuid: str
-    status: str
+    notification: str # added, table-ready, delayed
 
 def getMessage(status: str):
     return "Hello"
 
-@post(path="/waitlist/party/status/update")
+@post(path="/waitlist/party/notification/update")
 def send_text(body: Body) -> SendResult:
     party = getPartyInformation(body.partyGuid)
-    message = getMessage(body.status)
+    message = getMessage(body.notification)
     return send("", "sms", party.phone_number, "5555555552", message)
     
 
