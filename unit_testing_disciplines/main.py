@@ -14,7 +14,7 @@ def post(path: str) -> Callable[..., Any]:
 class Body:
     eventGuid: str
     partyGuid: str
-    notification: str # consider the following notifications, added-to-waitlist, table-ready, delayed
+    notification: str # consider the following notifications, added-to-waitlist, table-prepared, delayed
 
 def getMessage(status: str):
     return "Hello"
