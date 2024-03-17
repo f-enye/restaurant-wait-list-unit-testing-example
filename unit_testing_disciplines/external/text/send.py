@@ -1,5 +1,3 @@
-
-
 from dataclasses import dataclass
 import requests
 
@@ -11,11 +9,7 @@ class SendResult:
 
 
 def send(
-    bearer_token: str,
-    protocol: str,
-    to: str,
-    from_: str,
-    message: str
+    bearer_token: str, protocol: str, to: str, from_: str, message: str
 ) -> SendResult:
     result = requests.post(
         "https://t-e-x-t.example.com/send",
@@ -25,7 +19,7 @@ def send(
             "to": to,
             "from": from_,
             "message": message,
-        }
+        },
     )
     result.raise_for_status()
     response = result.json()

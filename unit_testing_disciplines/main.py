@@ -1,7 +1,12 @@
 from dataclasses import dataclass
+from enum import Enum
 from typing import Any, Callable
 from unit_testing_disciplines.external.text.send import send, SendResult
-from unit_testing_disciplines.external.waitlist.party.party_information import getPartyInformation
+from unit_testing_disciplines.external.waitlist.party.party_information import (
+    Party,
+    get_party,
+)
+
 
 def post(path: str) -> Callable[..., Any]:
     def _wrapper(f: Callable[..., Any]) -> Callable[..., Any]:
@@ -12,18 +17,26 @@ def post(path: str) -> Callable[..., Any]:
 
 @dataclass(frozen=True)
 class Body:
-    eventGuid: str
-    partyGuid: str
-    notification: str # consider the following notifications, added-to-waitlist, table-prepared, delayed
+    event_guid: str
+    party_guid: str
+    notification: str  # consider the following notifications, added_to_waitlist, table_prepared, waitlist_delayed
 
-def getMessage(status: str):
-    return "Hello"
+def get_added_to_waitlist_message(party: Party) -> str:
+    return f"Welcome, we've added you to our waitlist. We expect to have your table prepared in about {party.quoted_time_in_minutes} minutes."
+
+class Notifications(Enum):
+    added_to_waitlist = "added_to_waitlist"
+    
+_strategies = {
+    Notifications.added_to_waitlist: get_added_to_waitlist_message
+}
+
+def get_message(party: Party, notification: str) -> str:
+    return _strategies[Notifications(notification)](party)
+
 
 @post(path="/waitlist/party/notification/update")
-def send_text(body: Body) -> SendResult:
-    party = getPartyInformation(body.partyGuid)
-    message = getMessage(body.notification)
+def waitlist_party_notification_update(body: Body) -> SendResult:
+    party = get_party("", body.party_guid)
+    message = get_message(party, body.notification)
     return send("", "sms", party.phone_number, "5555555552", message)
-    
-
-
