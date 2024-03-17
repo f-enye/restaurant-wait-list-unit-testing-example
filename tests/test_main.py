@@ -44,3 +44,19 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
         "Welcome, we've added you to our waitlist. We expect to have your table prepared in about 30 minutes.",
     )
     assert response.status == "sent"
+
+
+def test_waitlist_party_notification_update_given_table_prepared_notification_update(
+        get_party_mock, send_mock
+):
+    response = waitlist_party_notification_update(
+        Body(event_guid="a", party_guid="b", notification="table_prepared")
+    )
+    send_mock.assert_called_once_with(
+        ANY,
+        "sms",
+        "5555555551",
+        "5555555552",
+        "Hello, you're table is ready. To get seated please see the host."
+    )
+    assert response.status == "sent"
