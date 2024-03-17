@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 
-import requests
+from httpx import get
 
 
 @dataclass(frozen=True)
@@ -15,7 +15,7 @@ class Party:
 
 
 def get_party(bearer_token: str, guid: str) -> Party:
-    result = requests.get(
+    result = get(
         "https://waitlist.example.com/party/{guid}",
         headers={"Authorization": f"Bearer {bearer_token}"},
     )

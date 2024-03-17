@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-import requests
+from httpx import post
 
 
 @dataclass(frozen=True)
@@ -12,7 +12,7 @@ class SendResult:
 def send(
     bearer_token: str, protocol: str, to: str, from_: str, message: str
 ) -> SendResult:
-    result = requests.post(
+    result = post(
         "https://t-e-x-t.example.com/send",
         headers={"Authorization": f"Bearer {bearer_token}"},
         data={
