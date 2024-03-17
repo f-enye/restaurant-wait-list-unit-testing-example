@@ -47,7 +47,7 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
 
 
 def test_waitlist_party_notification_update_given_table_prepared_notification_update(
-        get_party_mock, send_mock
+    get_party_mock, send_mock
 ):
     response = waitlist_party_notification_update(
         Body(event_guid="a", party_guid="b", notification="table_prepared")
@@ -57,6 +57,22 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
         "sms",
         "5555555551",
         "5555555552",
-        "Hello, you're table is ready. To get seated please see the host."
+        "Hello, you're table is ready. To get seated please see the host.",
+    )
+    assert response.status == "sent"
+
+
+def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
+    get_party_mock, send_mock
+):
+    response = waitlist_party_notification_update(
+        Body(event_guid="a", party_guid="b", notification="waitlist_delayed")
+    )
+    send_mock.assert_called_once_with(
+        ANY,
+        "sms",
+        "5555555551",
+        "5555555552",
+        "Apologies, it is taking longer than expected to finish preparing your table. Please see the host if you have any questions.",
     )
     assert response.status == "sent"
