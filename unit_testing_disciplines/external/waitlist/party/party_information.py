@@ -1,11 +1,10 @@
-from dataclasses import dataclass
 from datetime import datetime
 
 from httpx import get
+from pydantic import BaseModel
 
 
-@dataclass(frozen=True)
-class Party:
+class Party(BaseModel):
     name: str
     phone_number: str
     size: int
