@@ -25,5 +25,6 @@ def get_party(bearer_token: str, guid: str) -> Party:
         name=response["name"],
         phone_number=response["phone_number"],
         time_of_arrival=response["time_of_arrival"],
+        size=response["size"],
         quoted_time_in_minutes=response["quoted_time_in_minutes"],
     )
