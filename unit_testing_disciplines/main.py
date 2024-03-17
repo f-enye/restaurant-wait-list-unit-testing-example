@@ -16,7 +16,7 @@ def post(path: str) -> Callable[..., Any]:
 class Body:
     event_guid: str
     party_guid: str
-    notification: str  # consider the following notifications, added_to_waitlist, table_prepared, waitlist_delayed
+    notification: str
 
 
 @post(path="/waitlist/party/notification/update")
