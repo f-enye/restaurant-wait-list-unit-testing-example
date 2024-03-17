@@ -1,4 +1,5 @@
 from enum import Enum
+
 from unit_testing_disciplines.external.waitlist.party.party_information import Party
 
 

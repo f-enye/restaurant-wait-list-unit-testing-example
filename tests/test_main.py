@@ -1,6 +1,8 @@
 from datetime import datetime
-from unittest.mock import patch, ANY
+from unittest.mock import ANY, patch
+
 from pytest import fixture
+
 from unit_testing_disciplines.external.example_framework.example_framework import Body
 from unit_testing_disciplines.external.text.send import SendResult
 from unit_testing_disciplines.external.waitlist.party.party_information import Party

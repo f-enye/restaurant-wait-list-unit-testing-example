@@ -1,6 +1,8 @@
-from unit_testing_disciplines.external.example_framework.example_framework import Body
-from unit_testing_disciplines.external.example_framework.example_framework import post
-from unit_testing_disciplines.external.text.send import send, SendResult
+from unit_testing_disciplines.external.example_framework.example_framework import (
+    Body,
+    post,
+)
+from unit_testing_disciplines.external.text.send import SendResult, send
 from unit_testing_disciplines.external.waitlist.party.party_information import get_party
 from unit_testing_disciplines.text.get_message import get_message
 
