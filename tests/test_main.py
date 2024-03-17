@@ -3,10 +3,12 @@ from unittest.mock import ANY, patch
 
 from pytest import fixture
 
-from unit_testing_disciplines.external.example_framework.example_framework import Body
 from unit_testing_disciplines.external.text.send import SendResult
 from unit_testing_disciplines.external.waitlist.party.party_information import Party
-from unit_testing_disciplines.main import _waitlist_party_notification_update
+from unit_testing_disciplines.main import (
+    NotificationUpdate,
+    _waitlist_party_notification_update,
+)
 
 
 @fixture
@@ -37,7 +39,9 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
     get_party_mock, send_mock
 ):
     response = _waitlist_party_notification_update(
-        Body(event_guid="a", party_guid="b", notification="added_to_waitlist")
+        NotificationUpdate(
+            event_guid="a", party_guid="b", notification="added_to_waitlist"
+        )
     )
     send_mock.assert_called_once_with(
         ANY,
@@ -53,7 +57,9 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
     get_party_mock, send_mock
 ):
     response = _waitlist_party_notification_update(
-        Body(event_guid="a", party_guid="b", notification="table_prepared")
+        NotificationUpdate(
+            event_guid="a", party_guid="b", notification="table_prepared"
+        )
     )
     send_mock.assert_called_once_with(
         ANY,
@@ -69,7 +75,9 @@ def test_waitlist_party_notification_update_given_waitlist_delayed_notification_
     get_party_mock, send_mock
 ):
     response = _waitlist_party_notification_update(
-        Body(event_guid="a", party_guid="b", notification="waitlist_delayed")
+        NotificationUpdate(
+            event_guid="a", party_guid="b", notification="waitlist_delayed"
+        )
     )
     send_mock.assert_called_once_with(
         ANY,
