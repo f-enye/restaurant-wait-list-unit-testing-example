@@ -22,6 +22,6 @@ def waitlist_party_notification_update(
 
 
 def _waitlist_party_notification_update(notification_update: NotificationUpdate):
-    party = get_party("", notification_update.party_guid)
+    party = get_party(notification_update.party_guid)
     message = get_message(party, notification_update.notification)
-    return send("", "sms", party.phone_number, "5555555552", message)
+    return send("sms", party.phone_number, "5555555552", message)

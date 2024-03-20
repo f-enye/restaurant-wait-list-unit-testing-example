@@ -1,18 +1,19 @@
 from httpx import post
 from pydantic import BaseModel
 
+from unit_testing_disciplines.external.secrets.get_secrets import get_secrets
+
 
 class SendResult(BaseModel):
     id: str  # The ID for the message
     status: str  # The status of the message (e.g. sent, queued, failed).
 
 
-def send(
-    api_key: str, protocol: str, to: str, from_: str, message: str
-) -> SendResult:
+def send(protocol: str, to: str, from_: str, message: str) -> SendResult:
+    text_api_key = get_secrets("text_api_key")
     result = post(
         "https://t-e-x-t.example.com/send",
-        headers={"X-API-KEY": api_key},
+        headers={"X-API-KEY": text_api_key},
         data={
             "protocol": protocol,
             "to": to,

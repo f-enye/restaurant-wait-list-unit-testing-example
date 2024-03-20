@@ -44,7 +44,6 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
         )
     )
     send_mock.assert_called_once_with(
-        ANY,
         "sms",
         "5555555551",
         "5555555552",
@@ -62,7 +61,6 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
         )
     )
     send_mock.assert_called_once_with(
-        ANY,
         "sms",
         "5555555551",
         "5555555552",
@@ -80,7 +78,6 @@ def test_waitlist_party_notification_update_given_waitlist_delayed_notification_
         )
     )
     send_mock.assert_called_once_with(
-        ANY,
         "sms",
         "5555555551",
         "5555555552",
