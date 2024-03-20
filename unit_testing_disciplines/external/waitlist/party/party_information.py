@@ -13,10 +13,10 @@ class Party(BaseModel):
     notes: str | None = None
 
 
-def get_party(bearer_token: str, guid: str) -> Party:
+def get_party(api_key: str, guid: str) -> Party:
     result = get(
         "https://waitlist.example.com/party/{guid}",
-        headers={"Authorization": f"Bearer {bearer_token}"},
+        headers={"X-API-KEY": api_key},
     )
     result.raise_for_status()
     response = result.json()

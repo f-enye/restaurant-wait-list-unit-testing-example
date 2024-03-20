@@ -8,11 +8,11 @@ class SendResult(BaseModel):
 
 
 def send(
-    bearer_token: str, protocol: str, to: str, from_: str, message: str
+    api_key: str, protocol: str, to: str, from_: str, message: str
 ) -> SendResult:
     result = post(
         "https://t-e-x-t.example.com/send",
-        headers={"Authorization": f"Bearer {bearer_token}"},
+        headers={"X-API-KEY": api_key},
         data={
             "protocol": protocol,
             "to": to,
