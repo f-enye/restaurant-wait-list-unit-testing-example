@@ -1,8 +1,10 @@
-from google.cloud import secretmanager
 import google_crc32c
+from google.cloud import secretmanager
+
 
 class SecretDataCorruptionError(Exception):
     pass
+
 
 def get_secrets(key: str) -> str:
     """This function only serves to show how a dependency exists to obtain a value that is in a secret store (e.g. Google Secret Manager).
@@ -18,6 +20,7 @@ def get_secrets(key: str) -> str:
     _raise_for_invalid_payload_checksum(response)
 
     return response.payload.data.decode("UTF-8")
+
 
 def _raise_for_invalid_payload_checksum(response):
     crc32c = google_crc32c.Checksum()
