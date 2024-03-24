@@ -1,4 +1,5 @@
 from datetime import datetime
+import json
 from unittest.mock import ANY, patch
 
 import respx
@@ -21,7 +22,7 @@ def send_mock():
 
 
 @fixture
-def get_secrets_mock():
+def get_waitlist_secrets_mock():
     with patch(
         "unit_testing_disciplines.external.waitlist.party.party_information.get_secrets",
         return_value="example-waitlist-api-key",
@@ -30,7 +31,7 @@ def get_secrets_mock():
 
 
 @fixture
-def get_party_mock(get_secrets_mock):
+def get_party_mock(get_waitlist_secrets_mock):
     response = Response(
         200,
         json={
@@ -43,7 +44,30 @@ def get_party_mock(get_secrets_mock):
     )
 
     with respx.mock(base_url="https://waitlist.example.com/party/") as mock:
-        mock.get(name="waitlist-party-get", path__regex=r".+") % response
+        mock.get(name="get-waitlist-party", path__regex=r".+") % response
+        yield mock
+
+
+@fixture
+def get_text_secrets_mock():
+    with patch(
+        "unit_testing_disciplines.external.text.send.get_secrets",
+        return_value="example-text-api-key",
+    ) as mock:
+        yield mock
+
+
+@fixture
+def send_mock_2(get_text_secrets_mock):
+    response = Response(
+        200,
+        json={
+            "id": "1",
+            "status": "sent"
+        }
+    )
+    with respx.mock(base_url="https://t-e-x-t.example.com/") as mock:
+        mock.post(name="send-text", url="send") % response
         yield mock
 
 
@@ -57,7 +81,7 @@ def assert_all_mocked():
 
 
 def test_waitlist_party_notification_update_given_added_to_waitlist_notification_update(
-    assert_all_mocked, get_party_mock, send_mock
+    assert_all_mocked, get_party_mock, send_mock_2
 ):
     response = client.post(
         "/waitlist/party/notification/update",
@@ -67,12 +91,9 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
             "notification": "added_to_waitlist",
         },
     )
-    send_mock.assert_called_once_with(
-        "sms",
-        "5555555551",
-        "5555555552",
-        "Welcome, we've added you to our waitlist. We expect to have your table prepared in about 30 minutes.",
-    )
+    
+    send_mock_2.calls.assert_called_once()
+    assert json.loads(send_mock_2.calls.last.request.content) == {"protocol": "sms", "to": "5555555551", "from": "55555555552", "message": "Welcome, we've added you to our waitlist. We expect to have your table prepared in about 30 minutes.",}
     assert response.json()["status"] == "sent"
 
 

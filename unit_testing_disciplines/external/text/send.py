@@ -14,7 +14,7 @@ def send(protocol: str, to: str, from_: str, message: str) -> SendResult:
     result = post(
         "https://t-e-x-t.example.com/send",
         headers={"X-API-KEY": text_api_key},
-        data={
+        json={
             "protocol": protocol,
             "to": to,
             "from": from_,
