@@ -4,7 +4,7 @@ from unittest.mock import ANY, patch
 from pytest import fixture
 
 from unit_testing_disciplines.external.text.send import SendResult
-from unit_testing_disciplines.external.waitlist.party.party_information import Party
+from unit_testing_disciplines.external.waitlist.party.get_party import Party
 from unit_testing_disciplines.main import (
     NotificationUpdate,
     _waitlist_party_notification_update,

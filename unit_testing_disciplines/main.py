@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 from unit_testing_disciplines.external.text.send import SendResult, send
-from unit_testing_disciplines.external.waitlist.party.party_information import get_party
+from unit_testing_disciplines.external.waitlist.party.get_party import get_party
 from unit_testing_disciplines.text.get_message import get_message
 
 app = FastAPI()

@@ -1,21 +1,19 @@
 import json
 from datetime import datetime
-from unittest.mock import ANY, patch
+from unittest.mock import patch
 
 import respx
 from fastapi.testclient import TestClient
 from httpx import Response
 from pytest import fixture
 
-from unit_testing_disciplines.external.text.send import SendResult
-from unit_testing_disciplines.external.waitlist.party.party_information import Party
-from unit_testing_disciplines.main import NotificationUpdate, app
+from unit_testing_disciplines.main import app
 
 
 @fixture
 def get_waitlist_secrets_mock():
     with patch(
-        "unit_testing_disciplines.external.waitlist.party.party_information.get_secrets",
+        "unit_testing_disciplines.external.waitlist.party.get_party.get_secrets",
         return_value="example-waitlist-api-key",
     ) as mock:
         yield mock
