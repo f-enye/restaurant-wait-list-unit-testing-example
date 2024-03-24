@@ -74,7 +74,8 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
         "protocol": "sms",
         "to": "5555555551",
         "from": "5555555552",
-        "message": "Welcome, we've added you to our waitlist. We expect to have your table prepared in about 30 minutes.",
+        "message": "Welcome, we've added you to our waitlist. "
+        "We expect to have your table prepared in about 30 minutes.",
     }
     assert response.json()["status"] == "sent"
 
@@ -116,6 +117,7 @@ def test_waitlist_party_notification_update_given_waitlist_delayed_notification_
         "protocol": "sms",
         "to": "5555555551",
         "from": "5555555552",
-        "message": "Apologies, it is taking longer than expected to finish preparing your table. Please see the host if you have any questions.",
+        "message": "Apologies, it is taking longer than expected to finish "
+        "preparing your table. Please see the host if you have any questions.",
     }
     assert response.json()["status"] == "sent"

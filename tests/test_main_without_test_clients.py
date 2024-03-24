@@ -1,5 +1,5 @@
 from datetime import datetime
-from unittest.mock import ANY, patch
+from unittest.mock import patch
 
 from pytest import fixture
 
@@ -47,7 +47,8 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
         "sms",
         "5555555551",
         "5555555552",
-        "Welcome, we've added you to our waitlist. We expect to have your table prepared in about 30 minutes.",
+        "Welcome, we've added you to our waitlist. "
+        "We expect to have your table prepared in about 30 minutes.",
     )
     assert response.status == "sent"
 
@@ -81,6 +82,7 @@ def test_waitlist_party_notification_update_given_waitlist_delayed_notification_
         "sms",
         "5555555551",
         "5555555552",
-        "Apologies, it is taking longer than expected to finish preparing your table. Please see the host if you have any questions.",
+        "Apologies, it is taking longer than expected to finish preparing your "
+        "table. Please see the host if you have any questions.",
     )
     assert response.status == "sent"

@@ -7,9 +7,11 @@ class SecretDataCorruptionError(Exception):
 
 
 def get_secrets(key: str) -> str:
-    """This function only serves to show how a dependency exists to obtain a value that is in a secret store (e.g. Google Secret Manager).
+    """This function serves to show how a dependency to a secret store exists.
 
-    This example project is not actually hosted or dependent on any GCP products.
+    This example project is dependent on the Google Secret Manager python package, but
+    secrets are not actually hosted on GCP and this project is not dependent on
+    any Google Cloue Platform products.
     """
 
     client = secretmanager.SecretManagerServiceClient()
