@@ -59,14 +59,8 @@ def send_mock(get_text_secrets_mock):
 client = TestClient(app)
 
 
-@fixture
-def assert_all_mocked():
-    with respx.mock(assert_all_called=True) as mock:
-        yield mock
-
-
 def test_waitlist_party_notification_update_given_added_to_waitlist_notification_update(
-    assert_all_mocked, get_party_mock, send_mock
+    get_party_mock, send_mock
 ):
     response = client.post(
         "/waitlist/party/notification/update",
@@ -88,7 +82,7 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
 
 
 def test_waitlist_party_notification_update_given_table_prepared_notification_update(
-    assert_all_mocked, get_party_mock, send_mock
+    get_party_mock, send_mock
 ):
     response = client.post(
         "/waitlist/party/notification/update",
@@ -108,18 +102,22 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
     assert response.json()["status"] == "sent"
 
 
-# def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
-
-# ):
-#     response = _waitlist_party_notification_update(
-#         NotificationUpdate(
-#             event_guid="a", party_guid="b", notification="waitlist_delayed"
-#         )
-#     )
-#     send_mock.assert_called_once_with(
-#         "sms",
-#         "5555555551",
-#         "5555555552",
-#         "Apologies, it is taking longer than expected to finish preparing your table. Please see the host if you have any questions.",
-#     )
-#     assert response.status == "sent"
+def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
+    get_party_mock, send_mock 
+):
+    response = client.post(
+        "/waitlist/party/notification/update",
+        json={
+            "event_guid": "123",
+            "party_guid": "456",
+            "notification": "waitlist_delayed",
+        },
+    )
+    send_mock.calls.assert_called_once()
+    assert json.loads(send_mock.calls.last.request.content) == {
+        "protocol": "sms",
+        "to": "5555555551",
+        "from": "5555555552",
+        "message": "Apologies, it is taking longer than expected to finish preparing your table. Please see the host if you have any questions.",
+    }
+    assert response.json()["status"] == "sent"
