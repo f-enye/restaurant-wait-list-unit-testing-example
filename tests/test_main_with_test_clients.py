@@ -103,7 +103,7 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
 
 
 def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
-    get_party_mock, send_mock 
+    get_party_mock, send_mock
 ):
     response = client.post(
         "/waitlist/party/notification/update",
