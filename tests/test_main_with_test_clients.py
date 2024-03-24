@@ -1,5 +1,5 @@
-from datetime import datetime
 import json
+from datetime import datetime
 from unittest.mock import ANY, patch
 
 import respx
@@ -10,15 +10,6 @@ from pytest import fixture
 from unit_testing_disciplines.external.text.send import SendResult
 from unit_testing_disciplines.external.waitlist.party.party_information import Party
 from unit_testing_disciplines.main import NotificationUpdate, app
-
-
-@fixture
-def send_mock():
-    with patch(
-        "unit_testing_disciplines.main.send",
-        return_value=SendResult(id="1", status="sent"),
-    ) as mock:
-        yield mock
 
 
 @fixture
@@ -59,13 +50,7 @@ def get_text_secrets_mock():
 
 @fixture
 def send_mock_2(get_text_secrets_mock):
-    response = Response(
-        200,
-        json={
-            "id": "1",
-            "status": "sent"
-        }
-    )
+    response = Response(200, json={"id": "1", "status": "sent"})
     with respx.mock(base_url="https://t-e-x-t.example.com/") as mock:
         mock.post(name="send-text", url="send") % response
         yield mock
@@ -91,9 +76,14 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
             "notification": "added_to_waitlist",
         },
     )
-    
+
     send_mock_2.calls.assert_called_once()
-    assert json.loads(send_mock_2.calls.last.request.content) == {"protocol": "sms", "to": "5555555551", "from": "55555555552", "message": "Welcome, we've added you to our waitlist. We expect to have your table prepared in about 30 minutes.",}
+    assert json.loads(send_mock_2.calls.last.request.content) == {
+        "protocol": "sms",
+        "to": "5555555551",
+        "from": "5555555552",
+        "message": "Welcome, we've added you to our waitlist. We expect to have your table prepared in about 30 minutes.",
+    }
     assert response.json()["status"] == "sent"
 
 
