@@ -49,7 +49,7 @@ def get_text_secrets_mock():
 
 
 @fixture
-def send_mock_2(get_text_secrets_mock):
+def send_mock(get_text_secrets_mock):
     response = Response(200, json={"id": "1", "status": "sent"})
     with respx.mock(base_url="https://t-e-x-t.example.com/") as mock:
         mock.post(name="send-text", url="send") % response
@@ -66,7 +66,7 @@ def assert_all_mocked():
 
 
 def test_waitlist_party_notification_update_given_added_to_waitlist_notification_update(
-    assert_all_mocked, get_party_mock, send_mock_2
+    assert_all_mocked, get_party_mock, send_mock
 ):
     response = client.post(
         "/waitlist/party/notification/update",
@@ -77,8 +77,8 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
         },
     )
 
-    send_mock_2.calls.assert_called_once()
-    assert json.loads(send_mock_2.calls.last.request.content) == {
+    send_mock.calls.assert_called_once()
+    assert json.loads(send_mock.calls.last.request.content) == {
         "protocol": "sms",
         "to": "5555555551",
         "from": "5555555552",
@@ -87,21 +87,25 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
     assert response.json()["status"] == "sent"
 
 
-# def test_waitlist_party_notification_update_given_table_prepared_notification_update(
-
-# ):
-#     response = _waitlist_party_notification_update(
-#         NotificationUpdate(
-#             event_guid="a", party_guid="b", notification="table_prepared"
-#         )
-#     )
-#     send_mock.assert_called_once_with(
-#         "sms",
-#         "5555555551",
-#         "5555555552",
-#         "Hello, you're table is ready. To get seated please see the host.",
-#     )
-#     assert response.status == "sent"
+def test_waitlist_party_notification_update_given_table_prepared_notification_update(
+    assert_all_mocked, get_party_mock, send_mock
+):
+    response = client.post(
+        "/waitlist/party/notification/update",
+        json={
+            "event_guid": "123",
+            "party_guid": "456",
+            "notification": "table_prepared",
+        },
+    )
+    send_mock.calls.assert_called_once()
+    assert json.loads(send_mock.calls.last.request.content) == {
+        "protocol": "sms",
+        "to": "5555555551",
+        "from": "5555555552",
+        "message": "Hello, you're table is ready. To get seated please see the host.",
+    }
+    assert response.json()["status"] == "sent"
 
 
 # def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
