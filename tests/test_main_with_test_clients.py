@@ -13,7 +13,7 @@ from unit_testing_disciplines.main import app
 @fixture
 def get_waitlist_secrets_mock():
     with patch(
-        "unit_testing_disciplines.external.waitlist.party.get_party.get_secrets",
+        "unit_testing_disciplines.waitlist.party.get_party.get_secrets",
         return_value="example-waitlist-api-key",
     ) as mock:
         yield mock
@@ -40,7 +40,7 @@ def get_party_mock(get_waitlist_secrets_mock):
 @fixture
 def get_text_secrets_mock():
     with patch(
-        "unit_testing_disciplines.external.text.send.get_secrets",
+        "unit_testing_disciplines.text.send.get_secrets",
         return_value="example-text-api-key",
     ) as mock:
         yield mock

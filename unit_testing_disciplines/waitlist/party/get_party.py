@@ -3,7 +3,7 @@ from datetime import datetime
 from httpx import get
 from pydantic import BaseModel
 
-from unit_testing_disciplines.external.secrets.get_secrets import get_secrets
+from unit_testing_disciplines.secrets.get_secrets import get_secrets
 
 
 class Party(BaseModel):
