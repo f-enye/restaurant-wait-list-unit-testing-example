@@ -3,12 +3,12 @@ from unittest.mock import patch
 
 from pytest import fixture
 
-from unit_testing_disciplines.text_messages.send import SendResult
-from unit_testing_disciplines.waitlists.parties.get_party import Party
 from unit_testing_disciplines.main import (
     NotificationUpdate,
     _waitlist_party_notification_update,
 )
+from unit_testing_disciplines.text_messages.send import SendResult
+from unit_testing_disciplines.waitlists.parties.get_party import Party
 
 
 @fixture

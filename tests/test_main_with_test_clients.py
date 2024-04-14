@@ -11,7 +11,7 @@ from unit_testing_disciplines.main import app
 
 
 @fixture
-def get_waitlist_secrets_mock():
+def get_waitlist_api_key_mock():
     with patch(
         "unit_testing_disciplines.waitlists.parties.get_party.get_secret",
         return_value="example-waitlist-api-key",
@@ -20,7 +20,7 @@ def get_waitlist_secrets_mock():
 
 
 @fixture
-def get_party_mock(get_waitlist_secrets_mock):
+def get_party_mock(get_waitlist_api_key_mock):
     response = Response(
         200,
         json={
@@ -38,7 +38,7 @@ def get_party_mock(get_waitlist_secrets_mock):
 
 
 @fixture
-def get_text_secrets_mock():
+def get_text_messages_api_key_mock():
     with patch(
         "unit_testing_disciplines.text_messages.send.get_secret",
         return_value="example-text-api-key",
@@ -47,7 +47,7 @@ def get_text_secrets_mock():
 
 
 @fixture
-def send_mock(get_text_secrets_mock):
+def send_mock(get_text_messages_api_key_mock):
     response = Response(200, json={"id": "1", "status": "sent"})
     with respx.mock(base_url="https://t-e-x-t.example.com/") as mock:
         mock.post(name="send-text", url="send") % response
