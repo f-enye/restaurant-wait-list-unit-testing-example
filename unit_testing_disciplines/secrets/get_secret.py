@@ -6,7 +6,7 @@ class SecretDataCorruptionError(Exception):
     pass
 
 
-def get_secrets(key: str) -> str:
+def get_secret(key: str) -> str:
     """This function serves to show how a dependency to a secret store exists.
 
     This example project is dependent on the Google Secret Manager python package, but

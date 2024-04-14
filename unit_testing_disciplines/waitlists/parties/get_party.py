@@ -3,7 +3,7 @@ from datetime import datetime
 from httpx import get
 from pydantic import BaseModel
 
-from unit_testing_disciplines.secrets.get_secrets import get_secrets
+from unit_testing_disciplines.secrets.get_secret import get_secret
 
 
 class Party(BaseModel):
@@ -16,7 +16,7 @@ class Party(BaseModel):
 
 
 def get_party(guid: str) -> Party:
-    waitlist_api_key = get_secrets("waitlist_api_key")
+    waitlist_api_key = get_secret("waitlist_api_key")
     result = get(
         f"https://waitlist.example.com/party/{guid}",
         headers={"X-API-KEY": waitlist_api_key},

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from unit_testing_disciplines.waitlist.party.get_party import Party
+from unit_testing_disciplines.waitlists.parties.get_party import Party
 
 
 class Notifications(Enum):
