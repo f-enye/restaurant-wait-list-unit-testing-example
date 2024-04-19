@@ -3,7 +3,7 @@ from datetime import datetime
 from httpx import get
 from pydantic import BaseModel
 
-from unit_testing_disciplines.secrets.get_secret import get_secret
+from restaurant_waitlist_notifier.secrets.get_secret import get_secret
 
 
 class Party(BaseModel):

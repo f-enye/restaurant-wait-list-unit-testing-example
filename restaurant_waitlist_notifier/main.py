@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-from unit_testing_disciplines.text_messages.get_message import get_message
-from unit_testing_disciplines.text_messages.send import SendResult, send
-from unit_testing_disciplines.waitlists.parties.get_party import get_party
+from restaurant_waitlist_notifier.text_messages.get_message import get_message
+from restaurant_waitlist_notifier.text_messages.send import SendResult, send
+from restaurant_waitlist_notifier.waitlists.parties.get_party import get_party
 
 app = FastAPI()
 

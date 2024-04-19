@@ -7,13 +7,13 @@ from fastapi.testclient import TestClient
 from httpx import Response
 from pytest import fixture
 
-from unit_testing_disciplines.main import app
+from restaurant_waitlist_notifier.main import app
 
 
 @fixture
 def get_waitlist_api_key_mock():
     with patch(
-        "unit_testing_disciplines.waitlists.parties.get_party.get_secret",
+        "restaurant_waitlist_notifier.waitlists.parties.get_party.get_secret",
         return_value="example-waitlist-api-key",
     ) as mock:
         yield mock
@@ -40,7 +40,7 @@ def get_party_mock(get_waitlist_api_key_mock):
 @fixture
 def get_text_messages_api_key_mock():
     with patch(
-        "unit_testing_disciplines.text_messages.send.get_secret",
+        "restaurant_waitlist_notifier.text_messages.send.get_secret",
         return_value="example-text-api-key",
     ) as mock:
         yield mock
