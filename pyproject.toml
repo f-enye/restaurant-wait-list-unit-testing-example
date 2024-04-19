@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "unit-testing-disciplines"
+name = "restauraunt_waitlist_notifier"
 version = "0.1.0"
 description = ""
 authors = ["f-enye <fpena34@gmail.com>"]
