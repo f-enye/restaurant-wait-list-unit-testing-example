@@ -35,12 +35,12 @@ def get_party_mock():
         yield mock
 
 
-def test_waitlist_party_notification_update_given_added_to_waitlist_notification_update(
-    get_party_mock, send_mock
-):
+def test_added_to_waitlist_notification_sent(get_party_mock, send_mock):
     response = _waitlist_party_notification_sent(
         Notification(
-            event_id="a", party_id="b", type="added_to_waitlist"
+            event_id="test-event-uuid",
+            party_id="test-party-uuid",
+            type="added_to_waitlist",
         )
     )
     send_mock.assert_called_once_with(
@@ -53,12 +53,12 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
     assert response.status == "sent"
 
 
-def test_waitlist_party_notification_update_given_table_prepared_notification_update(
-    get_party_mock, send_mock
-):
+def test_table_prepared_notification_sent(get_party_mock, send_mock):
     response = _waitlist_party_notification_sent(
         Notification(
-            event_id="a", party_id="b", type="table_prepared"
+            event_id="test-event-uuid",
+            party_id="test-party-uuid",
+            type="table_prepared",
         )
     )
     send_mock.assert_called_once_with(
@@ -70,12 +70,12 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
     assert response.status == "sent"
 
 
-def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
-    get_party_mock, send_mock
-):
+def test_waitlist_deplayed_notification_sent(get_party_mock, send_mock):
     response = _waitlist_party_notification_sent(
         Notification(
-            event_id="a", party_id="b", type="waitlist_delayed"
+            event_id="test-event-uuid",
+            party_id="test-party-uuid",
+            type="waitlist_delayed",
         )
     )
     send_mock.assert_called_once_with(

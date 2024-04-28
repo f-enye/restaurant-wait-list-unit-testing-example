@@ -63,8 +63,8 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
     response = client.post(
         "/waitlist/party/notification/sent",
         json={
-            "event_id": "123",
-            "party_id": "456",
+            "event_id": "test-event-uuid",
+            "party_id": "test-party-uuid",
             "type": "added_to_waitlist",
         },
     )
@@ -86,8 +86,8 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
     response = client.post(
         "/waitlist/party/notification/sent",
         json={
-            "event_id": "123",
-            "party_id": "456",
+            "event_id": "test-event-uuid",
+            "party_id": "test-party-uuid",
             "type": "table_prepared",
         },
     )
@@ -107,8 +107,8 @@ def test_waitlist_party_notification_update_given_waitlist_delayed_notification_
     response = client.post(
         "/waitlist/party/notification/sent",
         json={
-            "event_id": "123",
-            "party_id": "456",
+            "event_id": "test-event-uuid",
+            "party_id": "test-party-uuid",
             "type": "waitlist_delayed",
         },
     )
