@@ -12,15 +12,6 @@ from restaurant_waitlist_notifier.waitlists.parties.get_party import Party
 
 
 @fixture
-def send_mock():
-    with patch(
-        "restaurant_waitlist_notifier.main.send",
-        return_value=SendResult(id="1", status="sent"),
-    ) as mock:
-        yield mock
-
-
-@fixture
 def get_party_mock():
     with patch(
         "restaurant_waitlist_notifier.main.get_party",
@@ -31,6 +22,15 @@ def get_party_mock():
             time_of_arrival=datetime(2024, 1, 1, 1, 0),
             quoted_time_in_minutes=30,
         ),
+    ) as mock:
+        yield mock
+
+
+@fixture
+def send_mock():
+    with patch(
+        "restaurant_waitlist_notifier.main.send",
+        return_value=SendResult(id="1", status="sent"),
     ) as mock:
         yield mock
 
