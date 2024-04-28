@@ -61,11 +61,11 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
     get_party_mock, send_mock
 ):
     response = client.post(
-        "/waitlist/party/notification/update",
+        "/waitlist/party/notification/sent",
         json={
-            "event_guid": "123",
-            "party_guid": "456",
-            "notification": "added_to_waitlist",
+            "event_id": "123",
+            "party_id": "456",
+            "type": "added_to_waitlist",
         },
     )
 
@@ -84,11 +84,11 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
     get_party_mock, send_mock
 ):
     response = client.post(
-        "/waitlist/party/notification/update",
+        "/waitlist/party/notification/sent",
         json={
-            "event_guid": "123",
-            "party_guid": "456",
-            "notification": "table_prepared",
+            "event_id": "123",
+            "party_id": "456",
+            "type": "table_prepared",
         },
     )
     send_mock.calls.assert_called_once()
@@ -105,11 +105,11 @@ def test_waitlist_party_notification_update_given_waitlist_delayed_notification_
     get_party_mock, send_mock
 ):
     response = client.post(
-        "/waitlist/party/notification/update",
+        "/waitlist/party/notification/sent",
         json={
-            "event_guid": "123",
-            "party_guid": "456",
-            "notification": "waitlist_delayed",
+            "event_id": "123",
+            "party_id": "456",
+            "type": "waitlist_delayed",
         },
     )
     send_mock.calls.assert_called_once()

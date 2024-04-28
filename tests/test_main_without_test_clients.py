@@ -4,8 +4,8 @@ from unittest.mock import patch
 from pytest import fixture
 
 from restaurant_waitlist_notifier.main import (
-    NotificationUpdate,
-    _waitlist_party_notification_update,
+    Notification,
+    _waitlist_party_notification_sent,
 )
 from restaurant_waitlist_notifier.text_messages.send import SendResult
 from restaurant_waitlist_notifier.waitlists.parties.get_party import Party
@@ -38,9 +38,9 @@ def get_party_mock():
 def test_waitlist_party_notification_update_given_added_to_waitlist_notification_update(
     get_party_mock, send_mock
 ):
-    response = _waitlist_party_notification_update(
-        NotificationUpdate(
-            event_guid="a", party_guid="b", notification="added_to_waitlist"
+    response = _waitlist_party_notification_sent(
+        Notification(
+            event_id="a", party_id="b", type="added_to_waitlist"
         )
     )
     send_mock.assert_called_once_with(
@@ -56,9 +56,9 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
 def test_waitlist_party_notification_update_given_table_prepared_notification_update(
     get_party_mock, send_mock
 ):
-    response = _waitlist_party_notification_update(
-        NotificationUpdate(
-            event_guid="a", party_guid="b", notification="table_prepared"
+    response = _waitlist_party_notification_sent(
+        Notification(
+            event_id="a", party_id="b", type="table_prepared"
         )
     )
     send_mock.assert_called_once_with(
@@ -73,9 +73,9 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
 def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
     get_party_mock, send_mock
 ):
-    response = _waitlist_party_notification_update(
-        NotificationUpdate(
-            event_guid="a", party_guid="b", notification="waitlist_delayed"
+    response = _waitlist_party_notification_sent(
+        Notification(
+            event_id="a", party_id="b", type="waitlist_delayed"
         )
     )
     send_mock.assert_called_once_with(
