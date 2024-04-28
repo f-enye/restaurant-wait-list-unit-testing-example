@@ -46,7 +46,6 @@ def test_added_to_waitlist_notification_sent(get_party_mock, send_mock):
     send_mock.assert_called_once_with(
         "sms",
         "5555555551",
-        "5555555552",
         "Welcome, we've added you to our waitlist. "
         "We expect to have your table prepared in about 30 minutes.",
     )
@@ -64,7 +63,6 @@ def test_table_prepared_notification_sent(get_party_mock, send_mock):
     send_mock.assert_called_once_with(
         "sms",
         "5555555551",
-        "5555555552",
         "Hello, you're table is ready. To get seated please see the host.",
     )
     assert response.status == "sent"
@@ -81,7 +79,6 @@ def test_waitlist_deplayed_notification_sent(get_party_mock, send_mock):
     send_mock.assert_called_once_with(
         "sms",
         "5555555551",
-        "5555555552",
         "Apologies, it is taking longer than expected to finish preparing your "
         "table. Please see the host if you have any questions.",
     )

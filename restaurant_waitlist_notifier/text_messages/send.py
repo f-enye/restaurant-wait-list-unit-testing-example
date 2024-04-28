@@ -9,7 +9,7 @@ class SendResult(BaseModel):
     status: str  # The status of the message (e.g. sent, queued, failed).
 
 
-def send(protocol: str, to: str, from_: str, message: str) -> SendResult:
+def send(protocol: str, to: str, message: str) -> SendResult:
     text_api_key = get_secret("text_api_key")
     result = post(
         "https://t-e-x-t.example.com/send",
@@ -17,7 +17,6 @@ def send(protocol: str, to: str, from_: str, message: str) -> SendResult:
         json={
             "protocol": protocol,
             "to": to,
-            "from": from_,
             "message": message,
         },
     )

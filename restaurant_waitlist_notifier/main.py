@@ -24,4 +24,4 @@ def waitlist_party_status_updated(
 def _waitlist_party_status_updated(event_request: StatusUpdatedEventRequest):
     party = get_party(event_request.party_id)
     message = get_message(party, event_request.status)
-    return send("sms", party.phone_number, "5555555552", message)
+    return send("sms", party.phone_number, message)
