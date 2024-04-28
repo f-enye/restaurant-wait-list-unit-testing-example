@@ -8,20 +8,20 @@ from restaurant_waitlist_notifier.waitlists.parties.get_party import get_party
 app = FastAPI()
 
 
-class Notification(BaseModel):
+class StatusUpdatedEventRequest(BaseModel):
     event_id: str
     party_id: str
-    type: str
+    status: str
 
 
-@app.post("/waitlist/party/notification/sent")
-def waitlist_party_notification_sent(
-    notification: Notification,
+@app.post("/waitlist/party/status/updated")
+def waitlist_party_status_updated(
+    event_request: StatusUpdatedEventRequest,
 ) -> SendResult:
-    return _waitlist_party_notification_sent(notification)
+    return _waitlist_party_status_updated(event_request)
 
 
-def _waitlist_party_notification_sent(notification: Notification):
-    party = get_party(notification.party_id)
-    message = get_message(party, notification.type)
+def _waitlist_party_status_updated(event_request: StatusUpdatedEventRequest):
+    party = get_party(event_request.party_id)
+    message = get_message(party, event_request.status)
     return send("sms", party.phone_number, "5555555552", message)

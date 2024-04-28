@@ -4,8 +4,8 @@ from unittest.mock import patch
 from pytest import fixture
 
 from restaurant_waitlist_notifier.main import (
-    Notification,
-    _waitlist_party_notification_sent,
+    StatusUpdatedEventRequest,
+    _waitlist_party_status_updated,
 )
 from restaurant_waitlist_notifier.text_messages.send import SendResult
 from restaurant_waitlist_notifier.waitlists.parties.get_party import Party
@@ -36,11 +36,11 @@ def get_party_mock():
 
 
 def test_added_to_waitlist_notification_sent(get_party_mock, send_mock):
-    response = _waitlist_party_notification_sent(
-        Notification(
+    response = _waitlist_party_status_updated(
+        StatusUpdatedEventRequest(
             event_id="test-event-uuid",
             party_id="test-party-uuid",
-            type="added_to_waitlist",
+            status="added_to_waitlist",
         )
     )
     send_mock.assert_called_once_with(
@@ -54,11 +54,11 @@ def test_added_to_waitlist_notification_sent(get_party_mock, send_mock):
 
 
 def test_table_prepared_notification_sent(get_party_mock, send_mock):
-    response = _waitlist_party_notification_sent(
-        Notification(
+    response = _waitlist_party_status_updated(
+        StatusUpdatedEventRequest(
             event_id="test-event-uuid",
             party_id="test-party-uuid",
-            type="table_prepared",
+            status="table_prepared",
         )
     )
     send_mock.assert_called_once_with(
@@ -71,11 +71,11 @@ def test_table_prepared_notification_sent(get_party_mock, send_mock):
 
 
 def test_waitlist_deplayed_notification_sent(get_party_mock, send_mock):
-    response = _waitlist_party_notification_sent(
-        Notification(
+    response = _waitlist_party_status_updated(
+        StatusUpdatedEventRequest(
             event_id="test-event-uuid",
             party_id="test-party-uuid",
-            type="waitlist_delayed",
+            status="waitlist_delayed",
         )
     )
     send_mock.assert_called_once_with(
