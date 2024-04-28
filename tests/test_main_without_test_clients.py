@@ -35,7 +35,7 @@ def send_mock():
         yield mock
 
 
-def test_added_to_waitlist_notification_sent(get_party_mock, send_mock):
+def test_status_updated_to_added_to_waitlist(get_party_mock, send_mock):
     response = _waitlist_party_status_updated(
         StatusUpdatedEventRequest(
             event_id="test-event-uuid",
@@ -52,7 +52,7 @@ def test_added_to_waitlist_notification_sent(get_party_mock, send_mock):
     assert response.status == "sent"
 
 
-def test_table_prepared_notification_sent(get_party_mock, send_mock):
+def test_status_updated_to_table_prepared(get_party_mock, send_mock):
     response = _waitlist_party_status_updated(
         StatusUpdatedEventRequest(
             event_id="test-event-uuid",
@@ -68,7 +68,7 @@ def test_table_prepared_notification_sent(get_party_mock, send_mock):
     assert response.status == "sent"
 
 
-def test_waitlist_deplayed_notification_sent(get_party_mock, send_mock):
+def test_status_updated_to_waitlist_deplayed(get_party_mock, send_mock):
     response = _waitlist_party_status_updated(
         StatusUpdatedEventRequest(
             event_id="test-event-uuid",

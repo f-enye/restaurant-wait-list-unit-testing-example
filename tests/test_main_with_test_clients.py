@@ -57,7 +57,7 @@ def send_mock(get_text_messages_api_key_mock):
 client = TestClient(app)
 
 
-def test_waitlist_party_notification_update_given_added_to_waitlist_notification_update(
+def test_status_updated_to_added_to_waitlist(
     get_party_mock, send_mock
 ):
     response = client.post(
@@ -79,7 +79,7 @@ def test_waitlist_party_notification_update_given_added_to_waitlist_notification
     assert response.json()["status"] == "sent"
 
 
-def test_waitlist_party_notification_update_given_table_prepared_notification_update(
+def test_status_updated_to_table_prepared(
     get_party_mock, send_mock
 ):
     response = client.post(
@@ -99,7 +99,7 @@ def test_waitlist_party_notification_update_given_table_prepared_notification_up
     assert response.json()["status"] == "sent"
 
 
-def test_waitlist_party_notification_update_given_waitlist_delayed_notification_update(
+def test_status_updated_to_waitlist_delayed(
     get_party_mock, send_mock
 ):
     response = client.post(
